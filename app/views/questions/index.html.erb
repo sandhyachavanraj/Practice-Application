@@ -1,0 +1,9 @@
+<h3>Question and answers</h3>
+<% @questions.each do |q| %>
+	<%= "Q : " + q.name %><br/><br/>
+	<% q.answers.each do |a| %>
+		<%= "Answer : " + a.value %><br/><br/>
+	<% end %>
+<% end %>
+
+<%= link_to "Back", quizzes_path, :method => :get, :class => "btn btn-primary" %>

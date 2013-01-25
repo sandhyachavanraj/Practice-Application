@@ -1,0 +1,11 @@
+<h4>Admin Quiz Edit Page</h4>
+<%= simple_form_for @quiz, url: admin_quiz_path, method: 'put' do |quiz| %>
+	<%= quiz.input :name %>
+	<%= quiz.input :assigns_to %>
+	<%= quiz.simple_fields_for :questions do |q| %>
+		<%= q.input :name %>
+	<% end %>
+	<%= quiz.button :submit, class: "btn btn-primary" %>
+<% end %>
+
+<%= link_to "Back", admin_quizzes_path, class: "btn btn-primary" %>

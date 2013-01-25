@@ -1,0 +1,39 @@
+<!-- <div class="form">
+  <table class="table table-striped table-hover table-bordered">
+    <thead>
+    <th>User Name</th>
+    <th>Address</th>
+    <th>Mobile Number</th>
+    <th>Company</th>
+    </thead>
+    <tbody>    
+        <tr>
+          <td><%= @user_profile.user_name %></td>
+          <td><%= @user_profile.address %></td>
+          <td><%= @user_profile.mobile_number %></td>
+          <td><%= @user_profile.company %></td>          
+          <td><%= link_to "view", profile_path(@user_profile), :class => "btn btn-mini" %> </td>
+        </tr>
+      </tbody>
+    
+  </table>
+  
+</div>
+  -->
+
+<!-- <div>
+  <ul class="nav">
+    <li id="name"><%= link_to @user_profile.user_name %>
+      <ul id="list">
+        <li><%= link_to 'view profile', profile_path(@user_profile) %></li>
+        <li><%= link_to :sign_out, destroy_user_session_path, method: :delete %></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+  -->
+<div>
+We are change agents for business innovation. By leveraging global resource partnerships, we draw the highest level talent from worldwide locations. For us, achieving excellence is a team activity - from developers to designers and clients to our partners. We combine our talent with the latest in technology to engineer dynamic business solutions. We take pride in partnering with the Art of Living as an endeavor to serve  society.
+</div><br/><br/>
+
+<%=  link_to "Quiz List", quizzes_path, :method => :get, :class => "btn btn-primary" %>
