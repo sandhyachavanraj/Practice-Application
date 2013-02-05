@@ -3,7 +3,7 @@ class CreateQuizUsers < ActiveRecord::Migration
     create_table :quiz_users do |t|
       t.references :quiz
       t.references :user
-      t.integer :score
+      t.integer :score, :default => 0
       t.time :starting_time
       t.time :ending_time
       t.timestamps

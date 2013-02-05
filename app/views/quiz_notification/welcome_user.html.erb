@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Welcome <%= @user.user_profile.user_name %>
+    </title>
+  </head>
+  <body>
+    <p>
+
+      <h1> Welcome to <%= @user.user_profile.user_name %></h1>
+      <h2>  One Quiz is assign to you <br/> </h2>
+    
+
+    <%=  link_to "Click here to Gothrough the QuizPaper", quizzes_url %>
+  </p>
+</body>
+</html>
+
+
+

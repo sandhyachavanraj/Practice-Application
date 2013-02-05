@@ -1,17 +1,32 @@
 <h4>New Questions Form</h4>
+<%#= flash[:error] %>
 <%= simple_form_for @question, :url => quiz_questions_path, :method => 'post' do |q| %> 
-	<%= q.simple_fields_for :answers do |a| %>		
+  <%= q.simple_fields_for :answers do |a| %>		
 		<% @questions.each do |question| %>
 			<%- type = question.input_type %><br/></br>
-			<% if type == 'Textfield' %>
+			<% if type == 'Textfield' %>			
 			<%= a.hidden_field :id, value: question.id, :name => "question[#{question.id}][question_id]" %>
 				<%= a.input :value, :label => question.name, :input_html => { :name => "question[#{question.id}][answer]" } %>
 			<% end %>
-			<% if type == 'Textarea' %>
+			<% if type == 'Textarea' %>			
 			<%= a.hidden_field :id, value: question.id, :name => "question[#{question.id}][question_id]" %>
 				<%= a.input :value, :label => question.name, :as => :text, :input_html => { :name => "question[#{question.id}][answer]" } %>
+			<% end %>
+			<% if type == 'Radio' %>
+				<%= a.hidden_field :id, value: question.id, :name => "question[#{question.id}][question_id]" %>
+				<%= a.input :value, :label => question.name, :input_html => { :name => "question[#{question.id}][answer]" }, :collection => @values, as: :radio %>
+			<% end %>
+			<% if type == 'Listbox' %>
+				<%= a.hidden_field :id, value: question.id, :name => "question[#{question.id}][question_id]" %>
+				<%= a.input :value, :label => question.name, :collection => @listvalues, input_html: {name: "question[#{question.id}][answer][]", multiple: true } %>
+			<% end %>
+			<% if type == 'Checkbox' %>
+				<%= a.hidden_field :id, value: question.id, :name => "question[#{question.id}][question_id]" %>
+				<%= a.input :value, :label => question.name, :collection => @check_values, input_html: { name: "question[#{question.id}][answer][]" }, as: :check_boxes, include_hidden: false %>
 			<% end %>
 		<% end %>
 	<% end %>
 	<%= q.button :submit, "Submit", :class => "btn btn-primary" %>
+	<%= link_to "Back", quizzes_path, :class => "btn btn-primary" %>
 <% end %>
+

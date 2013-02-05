@@ -4,4 +4,7 @@ class Answer < ActiveRecord::Base
 
   belongs_to :question
   belongs_to :quiz_users
+
+  # validations
+  validates :value, presence: true
 end

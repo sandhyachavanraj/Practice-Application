@@ -19,6 +19,10 @@ class User < ActiveRecord::Base
 	#Nested attributes
 	accepts_nested_attributes_for :user_profile
 
+	# validations
+	validates :email, presence: true, format: {with: Devise.email_regexp}
+	validates :password, presence: true, length: {in: 7..15}
+
 	def activate
 		self.is_active = true
 		save

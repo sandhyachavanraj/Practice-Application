@@ -9,11 +9,17 @@
       	<td><%= quiz.name %></td>
       	<td>
       		<% quiz.users.each do |u| %>
-      			<%= u.user_profile.user_name %>
+      			<%= u.user_profile.user_name + "," %>
       		<% end %>
       	</td>
       	<td>
-      		<% if quiz.quiz_users.joins(:answers).count > 0 %>
+                  <% flag = true %>
+                  <% quiz.quiz_users.pluck(:id).each do |qu_id| %>
+                        <% if flag %>
+                          <% flag = quiz.quiz_users.joins(:answers).where("quiz_user_id = ?", qu_id).count > 0 %>
+                        <% end %>
+                  <% end %>
+      		<% if flag && quiz.quiz_users.count > 0 %>
       			<%= "Attempted" %>
       		<% else %>
       			<%= link_to "Edit", edit_admin_quiz_path(quiz) %>

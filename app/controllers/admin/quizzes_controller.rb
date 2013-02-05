@@ -1,12 +1,17 @@
 class Admin::QuizzesController < ApplicationController
+  before_filter :load_object, only: [:new, :create]
 	def new
 		@quiz = Quiz.new
     radio = Radio.new
     text_field = Textfield.new
     text_area = Textarea.new
-    radio.options.build
+    listbox = Listbox.new
+    checkbox = Checkbox.new
+    2.times { radio.options.build }
+    5.times { listbox.options.build }
+    5.times { checkbox.options.build }
     #radio.options.build
-    @quiz.questions = [radio, text_field, text_area ]
+    @quiz.questions = [radio, text_field, text_area, listbox, checkbox ]
     #@questions.options.build
     #@quiz.questions.each{ |q| q.options.build }
   	# @users = User.select("users.id, user_profiles.user_name").joins(:user_profile).collect{|c|[c.id, c.user_name]}
@@ -19,22 +24,28 @@ class Admin::QuizzesController < ApplicationController
     @quizzes = Quiz.all
   end
 
-	def create
-    @user = User.find_by_id(params[:quiz][:assigns_to])
-  	@quiz = @user.quizzes.new(params[:quiz])    
-  	if @user.quizzes.create!(params[:quiz])    
-      AssignQuiz.welcome_user(@user).deliver
-  		flash[:notice] = 'Successfully Created New Quiz'
-
-  		redirect_to admin_dashboards_path
-  	else
-  		flash[:notice] = 'Quiz not Created'
-  		render new_quiz_admin_dashboards_path
-  	end
+  def create
+    # raise params.inspect
+    @quiz = current_user.quizzes.new(params[:quiz])   
+    # params[:quiz][:assigns_to] = params[:quiz][:assigns_to]
+    # params[:quiz][:assigns_to].delete("")
+    # @quiz.users << User.find(params[:quiz][:assigns_to])
+    if @quiz.save
+      #AssignQuiz.welcome_user(@user).deliver
+      flash[:notice] = 'Successfully Created New Quiz'
+      redirect_to admin_dashboards_path   
+    else
+      flash[:notice] = 'Quiz not Created'
+      render new_admin_quiz_path 
+         
+    end
   end
 
   def edit
     @quiz = Quiz.find(params[:id])
+    u = User.select("user_profiles.user_name, users.id").joins(:user_profile)
+    @user_names = u.map{|k| {id: k.id, name: k.user_name}}
+    @user_ids = @quiz.quiz_users.map(&:user_id)
   end
 
   def update
@@ -48,4 +59,12 @@ class Admin::QuizzesController < ApplicationController
       render edit_admin_quiz_path
     end
   end
+
+  private
+
+  def load_object
+    u = User.select("user_profiles.user_name, users.id").joins(:user_profile)
+    @user_names = u.map{|k| {id: k.id, name: k.user_name}} 
+  end
+
 end
