@@ -10,9 +10,11 @@ describe UserProfile do
 		it { should validate_presence_of(:mobile_number) }		
 	  it { should validate_numericality_of(:mobile_number) }
 	  
-	  	before(:each) do
-  			@user_profile = FactoryGirl.create(:user_profile)
-			end
+	   	before(:each) do
+  	 		@user_profile = FactoryGirl.create(:user_profile)
+		  end
+		  
+		  it { should_not allow_value("$@nd#").for(:user_name) }
 
 			it { should validate_uniqueness_of(:mobile_number) }
 
@@ -21,19 +23,23 @@ describe UserProfile do
       it { should_not allow_value("dsfsdfsd").for(:mobile_number) }
 	
 
-		it { should ensure_length_of(:mobile_number).
-              is_equal_to(10).
-              with_message(/is valid/) }
+			# it { should ensure_length_of(:mobile_number).is_equal_to(10).with_short_message(/mobile_number is the wrong length (should be 10 characters) (0)/) }
                                
-    # it { should validates_format_of(:mobile_number).
-    #                                not_with('586412').
-    #                                with_message(/is not optional/) }
-
-    
-
-    # it { should validate_format_of(:mobile_number).
-    #                                not_with('dsfsdfsd').
-    #                                with_message(/is not optional/) }
+     context "validate mobile"do
+    	it "does not be save when mobile number is empty" do
+      	user_profile = FactoryGirl.build(:user_profile, :mobile_number => "")
+       	user_profile.should_not be_valid
+       	#user_profile.errors[:mobile_number].should_eq(/can't be blank/)
+    	end
+    	it "does not valid when mobile number is not in correct format" do
+      	user_profile = FactoryGirl.build(:user_profile, :mobile_number => "9876fdd5678")
+      	user_profile.should_not be_valid("mobile number can contain only integers" )
+    	end
+    	it "does valid when mobile number is in correct format" do
+      	user_profile = FactoryGirl.build(:user_profile, :mobile_number => "9876545678")
+      	user_profile.should be_valid
+    	end
+  	end
 	end
 end
 
