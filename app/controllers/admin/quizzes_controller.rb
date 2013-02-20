@@ -1,5 +1,6 @@
 class Admin::QuizzesController < ApplicationController
   before_filter :load_object, only: [:new, :create]
+  
 	def new
 		@quiz = Quiz.new
     radio = Radio.new
@@ -16,17 +17,15 @@ class Admin::QuizzesController < ApplicationController
     #@quiz.questions.each{ |q| q.options.build }
   	# @users = User.select("users.id, user_profiles.user_name").joins(:user_profile).collect{|c|[c.id, c.user_name]}
   	#@user_names = User.select("user_profiles.user_name").joins(:user_profile).collect(&:user_name)
-    u = User.select("user_profiles.user_name, users.id").joins(:user_profile)
-    @user_names = u.map{|k| {id: k.id, name: k.user_name}}
 	end
 
   def index
-    @quizzes = Quiz.all
+    @quizzes = Quiz.all    
   end
 
   def create
     # raise params.inspect
-    @quiz = current_user.quizzes.new(params[:quiz])   
+    @quiz = current_user.quizzes.new(params[:quiz]) 
     # params[:quiz][:assigns_to] = params[:quiz][:assigns_to]
     # params[:quiz][:assigns_to].delete("")
     # @quiz.users << User.find(params[:quiz][:assigns_to])
@@ -35,8 +34,8 @@ class Admin::QuizzesController < ApplicationController
       flash[:notice] = 'Successfully Created New Quiz'
       redirect_to admin_dashboards_path   
     else
-      flash[:notice] = 'Quiz not Created'
-      render new_admin_quiz_path 
+      flash[:error] = 'Quiz not Created'
+      render :action => :new 
          
     end
   end
@@ -48,15 +47,14 @@ class Admin::QuizzesController < ApplicationController
     @user_ids = @quiz.quiz_users.map(&:user_id)
   end
 
-  def update
-    @user = User.find_by_id(params[:quiz][:assigns_to])
-    @quiz = @user.quizzes.find(params[:id])
-    if @quiz.update_attributes!(params[:quiz])
+  def update    
+    @quiz = Quiz.find(params[:id])    
+    if @quiz.update_attributes(params[:quiz])
       flash[:notice] = "Quiz is Updated Successfully"
       redirect_to admin_quizzes_path
     else
       flash[:notice] = "You have entered something wrong please check"
-      render edit_admin_quiz_path
+      render :edit
     end
   end
 

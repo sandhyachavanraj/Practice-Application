@@ -14,6 +14,10 @@ describe UserProfile do
   	 		@user_profile = FactoryGirl.create(:user_profile)
 		  end
 		  
+		  it { should validate_format_of(:user_name).
+              not_with('12D45').
+              with_message(/username contains only characters/) }
+
 		  it { should_not allow_value("$@nd#").for(:user_name) }
 
 			it { should validate_uniqueness_of(:mobile_number) }

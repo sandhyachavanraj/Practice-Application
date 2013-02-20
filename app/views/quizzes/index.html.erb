@@ -3,4 +3,3 @@
 	<%= link_to (quiz.name), new_quiz_question_path(quiz.id), :method => :get, :class => @quiz_answered.include?(quiz.id) ? 'btn btn-success' : 'btn btn-primary' %>
 	<span><%= link_to "check_answers", quiz_questions_path(quiz.id), :class => "btn btn-primary" %></span><br/><br/>
 <% end %>
-

@@ -27,6 +27,8 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'therubyracer'
+gem 'rake', '~> 10.0.1'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -43,8 +45,9 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'ruby-debug'
 
-group :test do
+group :test, :development do
   gem 'rspec-rails'
   gem "factory_girl_rails"
   gem 'shoulda-matchers'
+  gem 'spork', '0.8.4'
 end

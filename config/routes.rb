@@ -73,7 +73,7 @@ PracticeApp::Application.routes.draw do
       end
     end
     resources :quizzes do
-      
+      resources :answers
     end
   end
 

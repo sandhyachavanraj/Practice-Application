@@ -7,7 +7,7 @@ class UserProfile < ActiveRecord::Base
 
     # validations
 
-    validates :user_name, presence: true, format: {with: /^([a-zA-Z\s0-9]*)$/, message: "username contains characters and numbers"}
+    validates :user_name, presence: true, format: {with: /^([a-zA-Z]*)$/, message: "username contains only characters"}
     validates :address, presence: true
     validates :company, presence: true
     validates :mobile_number, length: {is: 10, allow_blank: true }
