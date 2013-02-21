@@ -14,17 +14,15 @@ class AnswersController < ApplicationController
 	end
 
 	def create
-		# raise params.inspect
+		@quiz = Quiz.find(params[:quiz_id])
+		@questions = @quiz.questions
 		quiz_user = QuizUser.where({quiz_id: params[:quiz_id], user_id: current_user.id}).first
-		params[:answer][:answer_attributes].each do |ans|
-			@answer = Answer.new(ans)
-			@answer.quiz_user_id = quiz_user.id
-			@answer.save
-			flash[:notice] = "Values saved...!!!"
-		end
+		@answers = Answer.save_answers(params[:answer][:answer_attributes], quiz_user.id)
+		 if @answers.count > 0 
+		 	render :action => :new
+		 else
+		flash[:notice] = "Values saved....!!!"
 		redirect_to dashboards_path
-		# else
-		# 	render :new
-		# end
+	end
 	end
 end

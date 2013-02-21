@@ -1,0 +1,2 @@
+class Listbox < Question
+end

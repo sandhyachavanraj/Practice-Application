@@ -1,11 +1,11 @@
-<h3>Admin Answers Index</h3>
+<h3><%= @user.user_profile.user_name %> <%= @quiz.name %> Answers </h3>
 <h3>Questions.....................</h3>
 <% @questions.each do |q| %>
-	<%= "Q : " + q.name %><br/><br/>
+	<%= "Q" + q.id.to_s + " : " + q.name %><br/><br/>
 <% end %>
 <h3>Answers.....................</h3>
 <% @quiz_user.answers.each do |a| %>
 		<%= "A : " + a.value %><%= check_box("answers", a.value) %><br/><br/>
-	<% end %>
+<% end %>
 
 <%= link_to "Back", admin_quizzes_path, method: :get, class: "btn btn-primary" %>

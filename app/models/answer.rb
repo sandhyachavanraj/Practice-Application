@@ -9,6 +9,14 @@ class Answer < ActiveRecord::Base
   # validations
   validates :value, presence: true
 
-  # accepts_nested_attributes_for :answer_attributes
-
+  def self.save_answers(answers, quiz_user_id)
+  	error = []  	
+  	transaction do
+ 		  answers.each do|ans|  				
+  			answer = Answer.new(ans.merge!(quiz_user_id: quiz_user_id))  				
+  			error << answer.errors.full_messages unless answer.save
+  		end    		
+  	end
+  	return error  	
+  end
 end

@@ -1,4 +1,5 @@
 <h4>New Answer Form</h4>
+<%= @answers %>
 <%= simple_form_for :answer, url: quiz_answers_path, method: :post do |a| %>
 	<%#= q.simple_fields_for :answers do |a| %>		
 		<% @questions.each do |question| %>
