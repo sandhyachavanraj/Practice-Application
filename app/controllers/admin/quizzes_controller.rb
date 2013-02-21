@@ -11,12 +11,7 @@ class Admin::QuizzesController < ApplicationController
     2.times { radio.options.build }
     5.times { listbox.options.build }
     5.times { checkbox.options.build }
-    #radio.options.build
     @quiz.questions = [radio, text_field, text_area, listbox, checkbox ]
-    #@questions.options.build
-    #@quiz.questions.each{ |q| q.options.build }
-  	# @users = User.select("users.id, user_profiles.user_name").joins(:user_profile).collect{|c|[c.id, c.user_name]}
-  	#@user_names = User.select("user_profiles.user_name").joins(:user_profile).collect(&:user_name)
 	end
 
   def index
@@ -24,19 +19,13 @@ class Admin::QuizzesController < ApplicationController
   end
 
   def create
-    # raise params.inspect
-    @quiz = current_user.quizzes.new(params[:quiz]) 
-    # params[:quiz][:assigns_to] = params[:quiz][:assigns_to]
-    # params[:quiz][:assigns_to].delete("")
-    # @quiz.users << User.find(params[:quiz][:assigns_to])
+    @quiz = current_user.quizzes.new(params[:quiz])
     if @quiz.save
-      #AssignQuiz.welcome_user(@user).deliver
       flash[:notice] = 'Successfully Created New Quiz'
-      redirect_to admin_dashboards_path   
+      redirect_to admin_dashboards_path
     else
       flash[:error] = 'Quiz not Created'
-      render :action => :new 
-         
+      render :action => :new         
     end
   end
 
@@ -47,8 +36,8 @@ class Admin::QuizzesController < ApplicationController
     @user_ids = @quiz.quiz_users.map(&:user_id)
   end
 
-  def update    
-    @quiz = Quiz.find(params[:id])    
+  def update
+    @quiz = Quiz.find(params[:id])
     if @quiz.update_attributes(params[:quiz])
       flash[:notice] = "Quiz is Updated Successfully"
       redirect_to admin_quizzes_path
@@ -62,7 +51,6 @@ class Admin::QuizzesController < ApplicationController
 
   def load_object
     u = User.select("user_profiles.user_name, users.id").joins(:user_profile)
-    @user_names = u.map{|k| {id: k.id, name: k.user_name}} 
+    @user_names = u.map{|k| {id: k.id, name: k.user_name}}
   end
-
 end

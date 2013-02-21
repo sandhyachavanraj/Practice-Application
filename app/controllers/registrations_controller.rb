@@ -4,7 +4,7 @@ class RegistrationsController < Devise::RegistrationsController
 		@user.build_user_profile
 	end
 	
-       def create
+  def create
 		@user = User.new(params[:user])
 		if @user.save
 			redirect_to dashboards_path, notice: 'You are successfully registerd!'

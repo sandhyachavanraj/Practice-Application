@@ -1,8 +1,7 @@
 <h2>Edit Details</h2>
 <%= simple_form_for @user, url: admin_dashboard_path(@user) do |f| %>
-  <%= f.input :email %>  
-  <%= f.button :submit, :class => "btn btn-primary" %>
-  <%#= f.cancel :cancel %>  
+  <%= f.input :email %>
+  <%= f.button :submit, class: "btn btn-primary" %>
 <% end %>
 
 <%= link_to "Back", admin_dashboards_path %>

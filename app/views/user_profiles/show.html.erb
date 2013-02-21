@@ -1,19 +1,14 @@
 <h1>Welcome To UserProfile Show Page</h1>
 <%= 'you can find me in app/views/user_profiles/show.html.erb' %><br/><br/>
-
-  UserName: <%= @user_profile.user_name %><br/>  
+  UserName: <%= @user_profile.user_name %><br/>
   Email: <%= @user_profile.user.email %><br/>
   Address: <%= @user_profile.address %><br/>
   Mobile Number: <%= @user_profile.mobile_number %><br/>
   Company: <%= @user_profile.company %><br/>
   <% if current_user && current_user.admin == false %>
-  	<%= link_to "Back", dashboards_path, :class => "btn btn-mini" %>
-    <%= link_to 'Edit Profile', edit_profile_path, :class => "btn btn-mini" %>
+  	<%= link_to "Back", dashboards_path, class: "btn btn-mini" %>
+    <%= link_to 'Edit Profile', edit_profile_path, class: "btn btn-mini" %>
   <% end %>
   <% if current_user && current_user.admin? %>
-  	<%= link_to "Back To Admin Dashboard", admin_dashboards_path, :class => "btn btn-mini" %>
+  	<%= link_to "Back To Admin Dashboard", admin_dashboards_path, class: "btn btn-mini" %>
   <% end %>
-
- 
- 
-

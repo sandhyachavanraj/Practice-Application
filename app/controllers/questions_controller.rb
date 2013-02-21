@@ -1,25 +1,25 @@
 class QuestionsController < ApplicationController
-	def new
-		@question = Question.new
-		@quiz = Quiz.find(params[:quiz_id])
-		@questions =  @quiz.questions
-		@questions.each do |q|
-     if q.input_type == 'Radio'
-       @values = q.options.map(&:value)
-     end
-     if q.input_type == 'Listbox'
-       @listvalues = q.options.map(&:value)
-     end
-     if q.input_type == 'Checkbox'
-     	@check_values = q.options.map(&:value)
-     end
-   end
-	end
-
 	def index
 		@quiz = Quiz.find(params[:quiz_id])
 		@questions = @quiz.questions
 	end
+
+	def new
+		@question = Question.new
+		@quiz = Quiz.find(params[:quiz_id])
+		@questions =  @quiz.questions
+		# @questions.each do |q|
+  #    if q.input_type == 'Radio'
+  #      @values = q.options.map(&:value)
+  #    end
+  #    if q.input_type == 'Listbox'
+  #      @listvalues = q.options.map(&:value)
+  #    end
+  #    if q.input_type == 'Checkbox'
+  #    	@check_values = q.options.map(&:value)
+  #    end
+  #  end
+	end	
 
 	def create
 	  @question = Question.new

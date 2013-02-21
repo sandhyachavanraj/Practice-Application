@@ -17,5 +17,5 @@ class UserProfilesController < ApplicationController
     else
       render :edit
     end
-  end  
+  end
 end

@@ -4,22 +4,22 @@
 	<%= quiz.association :users, :label => "User Names", :collection => (@user_names.map {|p| [p[:name], p[:id]]}), :checked => @user_ids, :as => :check_boxes %>
 	<%= quiz.simple_fields_for :questions, @quiz.questions do |q| %>
 		<%= q.input :name %>
-		<% if q.object.input_type == 'Radio' %>		
+		<% if q.object.input_type == 'Radio' %>
 			<%= q.simple_fields_for :options do |opt| %>
 				<%= opt.input :label %>
-				<%= opt.input :value %>		
+				<%= opt.input :value %>
 			<% end %>
 		<% end %>
-		<% if q.object.input_type == 'Listbox' %>		
+		<% if q.object.input_type == 'Listbox' %>
 			<%= q.simple_fields_for :options do |opt| %>
 				<%= opt.input :label %>
-				<%= opt.input :value %>		
+				<%= opt.input :value %>
 			<% end %>
 		<% end %>
-		<% if q.object.input_type == 'Checkbox' %>		
+		<% if q.object.input_type == 'Checkbox' %>
 			<%= q.simple_fields_for :options do |opt| %>
 				<%= opt.input :label %>
-				<%= opt.input :value %>		
+				<%= opt.input :value %>
 			<% end %>
 		<% end %>
 	<% end %>

@@ -43,6 +43,5 @@ class Admin::ProfilesController < ApplicationController
       flash[:error] = 'Exeception occur'
     end
     redirect_to admin_dashboards_path
-  end
-    
+  end    
 end

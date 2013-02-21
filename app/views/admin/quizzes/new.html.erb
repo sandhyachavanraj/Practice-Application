@@ -4,7 +4,7 @@
 		<%= quiz.hidden_field :created_by, :value => current_user.id %>
 		<%= quiz.association :users, :label => "User Names", :collection => (@user_names.map {|p| [p[:name], p[:id]]}), :as => :check_boxes %>
 		<H1>questions</H1>
-		<%= quiz.simple_fields_for :questions, @quiz.questions do |question| %>		  
+		<%= quiz.simple_fields_for :questions, @quiz.questions do |question| %>
 			<% if question.object.input_type == 'Textfield' %>
 				<h4>textfield---------------------------------------------</h4>
 				<%= question.input :name, label: "Question" %>
@@ -19,31 +19,30 @@
 				<h4>radio---------------------------------------</h4>
 				<%= question.input :name, label: "Question" %>
 				<%= question.hidden_field :input_type, :value => "Radio", :id => "rd" %>
-				<%= question.simple_fields_for :options do |opt| %>	
+				<%= question.simple_fields_for :options do |opt| %>
 					<%= opt.input :label %>
-					<%= opt.input :value %>										
+					<%= opt.input :value %>
 				<% end %>
 			<% end %>
 			<% if question.object.input_type == 'Listbox' %>
 				<h4>Listbox---------------------------------------</h4>
 				<%= question.input :name, label: "Question" %>
 				<%= question.hidden_field :input_type, :value => "Listbox", :id => "rd" %>
-				<%= question.simple_fields_for :options do |opt| %>	
+				<%= question.simple_fields_for :options do |opt| %>
 					<%= opt.input :label %>
-					<%= opt.input :value %>										
+					<%= opt.input :value %>
 				<% end %>
 			<% end %>
 			<% if question.object.input_type == 'Checkbox' %>
 				<h4>Checkbox---------------------------------------</h4>
 				<%= question.input :name, label: "Question" %>
 				<%= question.hidden_field :input_type, :value => "Checkbox", :id => "rd" %>
-				<%= question.simple_fields_for :options do |opt| %>	
+				<%= question.simple_fields_for :options do |opt| %>
 					<%= opt.input :label %>
-					<%= opt.input :value %>										
+					<%= opt.input :value %>
 				<% end %>
 			<% end %>
-		<% end %>	
+		<% end %>
 	<%= quiz.button :submit, "Submit", :class => "btn btn-primary" %>
 	<%= link_to "Back", admin_dashboards_path, :class => "btn btn-primary" %>
 <% end %>
-

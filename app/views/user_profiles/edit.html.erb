@@ -1,11 +1,9 @@
 <h2>Edit UserProfile</h2>
 <%= simple_form_for user_profile, url: profile_path, method: :put do |f| %>
-  <%= f.input :user_name %>  
+  <%= f.input :user_name %>
   <%= f.input :address %>
   <%= f.input :mobile_number %>
   <%= f.input :company %>
   <%= f.button :submit, :class => "btn btn-primary" %>
-  <%#= f.cancel :cancel %>  
 <% end %>
-
 <%= link_to "Back", dashboards_path %>

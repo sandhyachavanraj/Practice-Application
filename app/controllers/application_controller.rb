@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_filter :authenticate_user!#, :banned?
+  before_filter :authenticate_user!
   protect_from_forgery
   
   rescue_from CanCan::AccessDenied do |exception|
@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
     @user_profile ||= current_user.user_profile
   end
   
-  def after_sign_in_path_for(resource)  
+  def after_sign_in_path_for(resource)
     if resource.admin?
       admin_dashboards_path
     else
@@ -27,14 +27,4 @@ class ApplicationController < ActionController::Base
       redirect_to  dashboards_path
     end
   end
-
-  
-  # def banned?
-  #   if current_user.is_active?
-  #     sign_out current_user
-  #     flash[:error] = "This account has been suspended...."
-  #     root_path
-  #   end
-  # end
-
 end
