@@ -8,4 +8,7 @@ class Answer < ActiveRecord::Base
 
   # validations
   validates :value, presence: true
+
+  # accepts_nested_attributes_for :answer_attributes
+
 end

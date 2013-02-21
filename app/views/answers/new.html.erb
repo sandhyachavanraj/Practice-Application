@@ -1,0 +1,30 @@
+<h4>New Answer Form</h4>
+<%= simple_form_for :answer, url: quiz_answers_path, method: :post do |a| %>
+	<%#= q.simple_fields_for :answers do |a| %>		
+		<% @questions.each do |question| %>
+			<%- type = question.input_type %><br/></br>
+			<% if type == 'Textfield' %>
+			<%= a.hidden_field :id, value: question.id, name: "answer[answer_attributes][][question_id]" %>
+				<%= a.input :value, label: question.name, input_html: { name: "answer[answer_attributes][][value]" } %>
+			<% end %>
+			<% if type == 'Textarea' %>
+			<%= a.hidden_field :id, value: question.id, name: "answer[answer_attributes][][question_id]" %>
+				<%= a.input :value, label: question.name, as: :text, input_html: { :name => "answer[answer_attributes][][value]" } %>
+			<% end %>
+			<% if type == 'Radio' %>
+				<%= a.hidden_field :id, value: question.id, name: "answer[answer_attributes][][question_id]" %>
+				<%= a.input :value, label: question.name, input_html: { name: "answer[answer_attributes][][value]" }, collection: question.options.map(&:value), as: :radio %>
+			<% end %>
+			<% if type == 'Listbox' %>
+				<%= a.hidden_field :id, value: question.id, name: "answer[answer_attributes][][question_id]" %>
+				<%= a.input :value, label: question.name, collection: question.options.map(&:value), input_html: {name: "answer[answer_attributes][][value][]", multiple: true } %>
+			<% end %>
+			<% if type == 'Checkbox' %>
+				<%= a.hidden_field :id, value: question.id, name: "answer[answer_attributes][][question_id]" %>
+				<%= a.input :value, label: question.name, collection: question.options.map(&:value), input_html: { name: "answer[answer_attributes][][value][]" }, as: :check_boxes, include_hidden: false %>
+			<% end %>
+		<% end %>
+	<%# end %>
+	<%= a.button :submit, "Submit", class: "btn btn-primary" %>
+	<%= link_to "Back", quizzes_path, class: "btn btn-primary" %>
+<% end %>

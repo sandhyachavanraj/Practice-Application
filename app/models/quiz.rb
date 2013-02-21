@@ -14,5 +14,5 @@ class Quiz < ActiveRecord::Base
   accepts_nested_attributes_for :questions, allow_destroy: true
 
   # validations
-  validates :name, presence: true  
+  # validates :name, presence: true  
 end

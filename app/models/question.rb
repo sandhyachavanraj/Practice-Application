@@ -10,7 +10,7 @@ class Question < ActiveRecord::Base
   has_many :options, foreign_key: 'question_id', dependent: :destroy
 
   # nested attributes
-  accepts_nested_attributes_for :options, allow_destroy: true, :answer
+  accepts_nested_attributes_for :options, allow_destroy: true
 
   # validations
   validates :name, presence: true  
