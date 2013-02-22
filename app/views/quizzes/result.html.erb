@@ -7,7 +7,7 @@
 <% @quiz_user.answers.each do |a| %>	  
 		<%- id = (a.question.id).to_s %>
 		<%- answer_id = a.id.to_s %>
-		<%= "A" + id + " : " + a.value %><%= check_box("answers", a.value, class: "saas",    :checked => (a.status_of_answer == true)) %><br/><br/>
+		<%= "A" + id + " : " + a.value %><%= check_box("answers", a.value, class: "saas",    checked: (a.status_of_answer == true), disabled: (a.status_of_answer == false)) %><br/><br/>
 <% end %>
 
 <%= link_to "Back", quiz_answers_path(@quiz.id), method: :get, class: "btn btn-primary" %>
