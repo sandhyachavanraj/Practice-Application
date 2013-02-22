@@ -31,8 +31,9 @@ class Admin::QuizzesController < ApplicationController
 
   def edit
     @quiz = Quiz.find(params[:id])
-    u = User.select("user_profiles.user_name, users.id").joins(:user_profile)
-    @user_names = u.map{|k| {id: k.id, name: k.user_name}}
+    load_object
+    # u = User.select("user_profiles.user_name, users.id").joins(:user_profile)
+    # @user_names = u.map{|k| {id: k.id, name: k.user_name}}
     @user_ids = @quiz.quiz_users.map(&:user_id)
   end
 
@@ -50,7 +51,7 @@ class Admin::QuizzesController < ApplicationController
   private
 
   def load_object
-    u = User.select("user_profiles.user_name, users.id").joins(:user_profile)
-    @user_names = u.map{|k| {id: k.id, name: k.user_name}}
+    u = User.select("user_profiles.user_name, users.id").joins(:user_profile).where('admin' => 0)
+    @user_names = u.map{|k| {id: k.id, name: k.user_name} }
   end
 end
