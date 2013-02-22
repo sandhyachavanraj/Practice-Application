@@ -51,7 +51,7 @@ class Admin::QuizzesController < ApplicationController
   private
 
   def load_object
-    u = User.select("user_profiles.user_name, users.id").joins(:user_profile).where('admin' => false)
+    u = User.select("user_profiles.user_name, users.id").joins(:user_profile).where(admin: false)
     @user_names = u.map{|k| {id: k.id, name: k.user_name} }
   end
 end
