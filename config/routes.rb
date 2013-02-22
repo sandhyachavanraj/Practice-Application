@@ -11,6 +11,8 @@ PracticeApp::Application.routes.draw do
   resources :quizzes do
     resources :questions
     resources :answers
+      get :result
+     
   end
 
   #resources :user_profiles, :path => :profile, :as => :profile

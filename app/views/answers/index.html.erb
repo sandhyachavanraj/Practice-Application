@@ -1,11 +1,13 @@
-<h3>Question and answers</h3>
+<h3><%= current_user.user_profile.user_name %> <%= @quiz.name %> Answers </h3>
 <h5>QUESTIONS : </h5>
 <% @user_quizzes.questions.each do |q| %>
-	<%= "Q : " + q.name %><br/><br/>	
+	<%= "Q"+ q.id.to_s + " : " + q.name %><br/><br/>	
 <% end %>
 <h5>ANSWERS : </h5>
 <% @answers.each do |a| %>
-		<%= "A : " + a.value %><br/><br/>
+	<%- id = (a.question.id).to_s %>
+	<%= "A" + id + " : " + a.value  %><br/><br/>	
 <% end %>
-
+<%= link_to "result", quiz_result_path(@quiz.id, user_id: current_user.id), method: :get, class: "btn btn-primary" %>
 <%= link_to "Back", quizzes_path, method: :get, class: "btn btn-primary" %>
+

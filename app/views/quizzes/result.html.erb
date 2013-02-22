@@ -1,0 +1,14 @@
+<h3><%= current_user.user_profile.user_name %> <%= @quiz.name %> Answers </h3>
+<h3>Questions.....................</h3>
+<% @questions.each do |q| %>
+	<%= "Q" + q.id.to_s + " : " + q.name %><br/><br/>
+<% end %>
+<h3>Answers.....................</h3>
+<% @quiz_user.answers.each do |a| %>	  
+		<%- id = (a.question.id).to_s %>
+		<%- answer_id = a.id.to_s %>
+		<%= "A" + id + " : " + a.value %><%= check_box("answers", a.value, class: "saas",    :checked => (a.status_of_answer == true)) %><br/><br/>
+<% end %>
+
+<%= link_to "Back", quiz_answers_path(@quiz.id), method: :get, class: "btn btn-primary" %>
+

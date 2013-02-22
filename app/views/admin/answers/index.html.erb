@@ -4,8 +4,25 @@
 	<%= "Q" + q.id.to_s + " : " + q.name %><br/><br/>
 <% end %>
 <h3>Answers.....................</h3>
-<% @quiz_user.answers.each do |a| %>
-		<%= "A : " + a.value %><%= check_box("answers", a.value) %><br/><br/>
+<% @quiz_user.answers.each do |a| %>	  
+		<%- id = (a.question.id).to_s %>
+		<%- answer_id = a.id.to_s %>
+		<%= "A" + id + " : " + a.value %><%= check_box("answers", a.value, class: "saas", id: id, answer_id: answer_id, quiz_id: @quiz.id, checked: a.status_of_answer ) %><br/><br/>
 <% end %>
 
 <%= link_to "Back", admin_quizzes_path, method: :get, class: "btn btn-primary" %>
+
+
+<script type="text/javascript">
+	$(document).ready(function(){		
+		$('input.saas[type=checkbox]').click(function () {			
+			var status_of_answer = jQuery(this).is(":checked")
+			jQuery.ajax({
+				type: "PUT",
+        url: '/admin/quizzes/'+jQuery(this).attr("quiz_id")+'/answers/'+jQuery(this).attr("answer_id")+'/check_answers',
+        data:  "answer_id=" + jQuery(this).attr("answer_id") + "&status_of_answer=" + status_of_answer
+			});
+			
+  	});  
+	});
+</script>

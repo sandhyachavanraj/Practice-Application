@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController	
 	def index
-		quiz = Quiz.find(params[:quiz_id])
-		quiz_user = quiz.quiz_users.find_by_user_id(current_user.id)
+		@quiz = Quiz.find(params[:quiz_id])
+		quiz_user = @quiz.quiz_users.find_by_user_id(current_user.id)
 		@answers = quiz_user.answers
 		@user_quizzes = current_user.quizzes.find(params[:quiz_id])
 		@quiz_answered = current_user.quiz_users.joins(:answers).select("DISTINCT quiz_id").pluck(:quiz_id)
