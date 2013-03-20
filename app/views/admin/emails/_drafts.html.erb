@@ -1,0 +1,18 @@
+<h2>Draft Mails</h2>
+<table border="2">
+  <th><%= check_box_tag "cbox", 'yes', false, class: "check" %> </th>
+  <th>From</th>
+  <th>Subject</th>
+  <th>Created</th>
+  <tbody>
+    <% @emails.each do |mail| %>
+      <tr>
+        <td><%= check_box_tag mail.id, 'yes', false, :class => 'cboxes check' %> </td>
+        <td><%=  mail.name %></td>
+        <td><%= link_to mail.subject, admin_email_path(mail), id: "show", remote: true  %></td>
+        <td><%=  mail.created_at.strftime("%a %D") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table><br/><br/>
+<%= link_to "Back", admin_emails_path, :class => "btn btn-primary" %>

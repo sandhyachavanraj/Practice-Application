@@ -1,48 +1,48 @@
 <h3>Create Quiz</h3>
-	<%= simple_form_for @quiz, url: admin_quizzes_path, method: 'post' do |quiz| %>
-		<%= quiz.input :name %>
-		<%= quiz.hidden_field :created_by, :value => current_user.id %>
-		<%= quiz.association :users, :label => "User Names", :collection => (@user_names.map {|p| [p[:name], p[:id]]}), :as => :check_boxes %>
-		<H1>questions</H1>
-		<%= quiz.simple_fields_for :questions, @quiz.questions do |question| %>
-			<% if question.object.input_type == 'Textfield' %>
-				<h4>textfield---------------------------------------------</h4>
-				<%= question.input :name, label: "Question" %>
-				<%= question.hidden_field :input_type, :value => "Textfield", :id => 'tf' %>
-			<% end %>
-			<% if question.object.input_type == 'Textarea' %>
-				<h4>textarea-----------------------------------------</h4>
-				<%= question.input :name, label: "Question" %>
-				<%= question.hidden_field :input_type, :value => "Textarea", :id => 'ta' %>
-			<% end %>
-			<% if question.object.input_type == 'Radio' %>
-				<h4>radio---------------------------------------</h4>
-				<%= question.input :name, label: "Question" %>
-				<%= question.hidden_field :input_type, :value => "Radio", :id => "rd" %>
-				<%= question.simple_fields_for :options do |opt| %>
-					<%= opt.input :label %>
-					<%= opt.input :value %>
-				<% end %>
-			<% end %>
-			<% if question.object.input_type == 'Listbox' %>
-				<h4>Listbox---------------------------------------</h4>
-				<%= question.input :name, label: "Question" %>
-				<%= question.hidden_field :input_type, :value => "Listbox", :id => "rd" %>
-				<%= question.simple_fields_for :options do |opt| %>
-					<%= opt.input :label %>
-					<%= opt.input :value %>
-				<% end %>
-			<% end %>
-			<% if question.object.input_type == 'Checkbox' %>
-				<h4>Checkbox---------------------------------------</h4>
-				<%= question.input :name, label: "Question" %>
-				<%= question.hidden_field :input_type, :value => "Checkbox", :id => "rd" %>
-				<%= question.simple_fields_for :options do |opt| %>
-					<%= opt.input :label %>
-					<%= opt.input :value %>
-				<% end %>
-			<% end %>
-		<% end %>
-	<%= quiz.button :submit, "Submit", :class => "btn btn-primary" %>
-	<%= link_to "Back", admin_dashboards_path, :class => "btn btn-primary" %>
+<%= simple_form_for @quiz, url: admin_quizzes_path, method: 'post' do |quiz| %>
+  <%= quiz.input :name %>
+  <%= quiz.hidden_field :created_by, :value => current_user.id %>
+  <%= quiz.association :users, :label => "User Names", :collection => (@user_names.map {|p| [p[:name], p[:id]]}), :as => :check_boxes %>
+  <H1>questions</H1>
+  <%= quiz.simple_fields_for :questions, @quiz.questions do |question| %>
+    <% if question.object.input_type == 'Textfield' %>
+      <h4>textfield---------------------------------------------</h4>
+      <%= question.input :name, label: "Question" %>
+      <%= question.hidden_field :input_type, :value => "Textfield", :id => 'tf' %>
+    <% end %>
+    <% if question.object.input_type == 'Textarea' %>
+      <h4>textarea-----------------------------------------</h4>
+      <%= question.input :name, label: "Question" %>
+      <%= question.hidden_field :input_type, :value => "Textarea", :id => 'ta' %>
+    <% end %>
+    <% if question.object.input_type == 'Radio' %>
+      <h4>radio---------------------------------------</h4>
+      <%= question.input :name, label: "Question" %>
+      <%= question.hidden_field :input_type, :value => "Radio", :id => "rd" %>
+      <%= question.simple_fields_for :options do |opt| %>
+        <%= opt.input :label %>
+        <%= opt.input :value %>
+      <% end %>
+    <% end %>
+    <% if question.object.input_type == 'Listbox' %>
+      <h4>Listbox---------------------------------------</h4>
+      <%= question.input :name, label: "Question" %>
+      <%= question.hidden_field :input_type, :value => "Listbox", :id => "rd" %>
+      <%= question.simple_fields_for :options do |opt| %>
+        <%= opt.input :label %>
+        <%= opt.input :value %>
+      <% end %>
+    <% end %>
+    <% if question.object.input_type == 'Checkbox' %>
+      <h4>Checkbox---------------------------------------</h4>
+      <%= question.input :name, label: "Question" %>
+      <%= question.hidden_field :input_type, :value => "Checkbox", :id => "rd" %>
+      <%= question.simple_fields_for :options do |opt| %>
+        <%= opt.input :label %>
+        <%= opt.input :value %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <%= quiz.button :submit, "Submit", :class => "btn btn-primary" %>
+  <%= link_to "Back", admin_dashboards_path, :class => "btn btn-primary" %>
 <% end %>

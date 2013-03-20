@@ -1,0 +1,10 @@
+<%= "Forward Email" %><br/><br/>
+<%= simple_form_for @email, url: send_reply_admin_email_path(@email) do |mail_fwd| %>
+  <%= mail_fwd.input :receiver_id, label: "To", input_html: { value: "" } %><br/><br/>
+  <%= mail_fwd.input :subject, input_html: { value: "Fwd: " + mail_fwd.object.subject } %><br/><br/>
+  <%= mail_fwd.input :body %>
+
+  <%= mail_fwd.submit :Send, class: "btn btn-primary"   %>
+<% end %>
+
+<%= link_to "Back", admin_emails_path, class: "btn btn-primary" %>

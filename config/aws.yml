@@ -1,0 +1,8 @@
+# Fill in your AWS Access Key ID and Secret Access Key
+# http://aws.amazon.com/security-credentials
+
+development:
+  bucket_name: psf_development
+  access_key_id: 'AKIAISWCFIKL3YIRSUSQ'
+  secret_access_key: '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'
+  port: 80

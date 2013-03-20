@@ -7,15 +7,16 @@
     <%= user.input :email, :required => true, :autofocus => true %>
     <%= user.input :password, :required => true %>
     <%= user.input :password_confirmation, :required => true %> 
-    <%#= f.input :type, :collection => [['User']] %>
     <%= user.simple_fields_for :user_profile do |profile| %>
       <%= profile.input :user_name %>
       <%= profile.input :address %>
       <%= profile.input :mobile_number %>
-      <%= profile.input :company %>
-    <% end %>
+      <%= profile.input :company %>      
+    <% end %>    
   </div>
-
+  <%= user.simple_fields_for :photos do |photo| %>
+    <%= photo.file_field :photo %>
+  <% end %>
   <div class="form-actions">
     <%= user.button :submit, "Sign up", :class => "btn btn-primary" %>
   </div>

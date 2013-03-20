@@ -13,6 +13,17 @@ gem 'will_paginate', '~> 3.0'
 gem 'omniauth'
 gem 'json'
 gem "cancan"
+gem 'aws-sdk'
+gem "acts_as_unvlogable"
+gem 'haml'
+gem 'roadie'
+gem "has_many_friends"
+gem 'paperclip'
+gem 'jquery-rails'
+# pagination
+gem 'kaminari'
+
+gem 'cells'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -27,8 +38,6 @@ group :assets do
 end
 
 gem 'jquery-rails'
-gem 'therubyracer'
-gem 'rake', '~> 10.0.1'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -44,10 +53,3 @@ gem 'rake', '~> 10.0.1'
 
 # To use debugger
 # gem 'ruby-debug'
-
-group :test, :development do
-  gem 'rspec-rails'
-  gem "factory_girl_rails"
-  gem 'shoulda-matchers'
-  gem 'spork', '0.8.4'
-end

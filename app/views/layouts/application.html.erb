@@ -4,6 +4,7 @@
     <title>PracticeApp</title>
     <%= stylesheet_link_tag    "application", :media => "all" %>
     <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag "jquery.sausage.js" %>
     <%= csrf_meta_tags %>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
@@ -17,7 +18,7 @@
             <span class="icon-bar"></span>
           </a>
           <a class="brand" href="#">Sample Application</a>
-          <div class="nav-collapse class='dropdown'">
+          <div class="nav-collapse dropdown">
             <ul class="nav">
               <li><%= link_to "Link1" %></li>
               <li><%= link_to "Link2" %></li>
@@ -33,12 +34,12 @@
               <% end %>        
             </ul>
           </div>
-        </div>
-      </div>
+        </div>        
+      </div>      
     </div>
     <%= bootstrap_flash %>    
     <div class="container">
-      <div class="row">
+      <div class="row">        
         <div class="span9"><%= yield %></div>
         <div class="span3">
           <h2>About Us</h2>

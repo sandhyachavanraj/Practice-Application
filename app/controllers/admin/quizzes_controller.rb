@@ -1,6 +1,6 @@
 class Admin::QuizzesController < ApplicationController
   before_filter :load_object, only: [:new, :create]
-  
+
 	def new
 		@quiz = Quiz.new
     radio = Radio.new

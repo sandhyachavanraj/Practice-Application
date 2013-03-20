@@ -1,14 +1,42 @@
 <h1>Welcome To UserProfile Show Page</h1>
 <%= 'you can find me in app/views/user_profiles/show.html.erb' %><br/><br/>
-  UserName: <%= @user_profile.user_name %><br/>
+  
+  <% current_user.photos.each_with_index do |photo, index| %>
+    <% if index == 0 %>
+      <%= image_tag  photo.photo.url(:thumb), id: "first_image" %>
+    <% else %>
+      <%= image_tag  photo.photo.url(:thumb), :style => ["display: none"], id: "sec_image" %>
+    <% end %>    
+  <% end %><br/><br/>
+  UserName: <%= @user_profile.user_name %><br/>  
   Email: <%= @user_profile.user.email %><br/>
   Address: <%= @user_profile.address %><br/>
   Mobile Number: <%= @user_profile.mobile_number %><br/>
   Company: <%= @user_profile.company %><br/>
+  Preferences: <%= @user_profile.user.preferences %><br/><br/>
+  
   <% if current_user && current_user.admin == false %>
-  	<%= link_to "Back", dashboards_path, class: "btn btn-mini" %>
-    <%= link_to 'Edit Profile', edit_profile_path, class: "btn btn-mini" %>
+  	<%= link_to "Back", dashboards_path, :class => "btn btn-mini" %>
+    <%= link_to 'Edit Profile', edit_profile_path, :class => "btn btn-mini" %>
   <% end %>
   <% if current_user && current_user.admin? %>
-  	<%= link_to "Back To Admin Dashboard", admin_dashboards_path, class: "btn btn-mini" %>
+  	<%= link_to "Back To Admin Dashboard", admin_dashboards_path, :class => "btn btn-mini" %>
   <% end %>
+  
+  <script type="text/javascript">
+    jQuery(document).ready(function(){
+      src = jQuery("#first_image").attr('src')
+      src1 = jQuery("#sec_image").attr('src')
+      jQuery("#first_image").hover(function(){
+        jQuery(this).attr("src", src1);
+      })
+      .mouseout(function(){
+        jQuery(this).attr("src", src);
+      });
+      
+    });
+  </script>
+
+ 
+ 
+

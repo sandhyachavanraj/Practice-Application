@@ -1,0 +1,29 @@
+<%= "New Email Form" %><br/><br/>
+
+<%= simple_form_for @email, url: admin_emails_path, method: "post" do |email| %>
+  <%= email.input :receiver_id, label: :To %>.
+  <%= email.hidden_field :sender_id %>
+  <%= email.input :subject %>
+  <%= email.input :body %>
+  <%= email.button :submit, :Send, class: "btn btn-primary" %>
+  <%= link_to "Save To Drafts", "Javascript:void(0);", class: "btn btn-primary", id: "draft" %>
+<% end %>
+
+
+<%= link_to "Back", admin_emails_path, class: "btn btn-primary" %>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("#draft").click(function(){
+        var receiver_id = $("#email_receiver_id").val();
+        var subject = $("#email_subject").val();
+        var body = $("#email_body").val();
+        jQuery.ajax({
+          type: "post",
+          dataType: "script",
+          url: "/admin/emails/",
+          data: "receiver_id=" + receiver_id + "&subject=" + subject + "&body=" + body
+        });
+      });
+    });
+  </script>

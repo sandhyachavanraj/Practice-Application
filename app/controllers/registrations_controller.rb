@@ -2,6 +2,7 @@ class RegistrationsController < Devise::RegistrationsController
 	def new
 		@user = User.new
 		@user.build_user_profile
+    2.times { @user.photos.build }
 	end
 	
   def create

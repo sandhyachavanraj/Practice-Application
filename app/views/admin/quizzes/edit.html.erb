@@ -1,31 +1,31 @@
 <h4>Admin Quiz Edit Page</h4>
 <%= simple_form_for @quiz, url: admin_quiz_path, method: 'put' do |quiz| %>
-	<%= quiz.input :name %>
-	<%= quiz.association :users, :label => "User Names", :collection => (@user_names.map {|p| [p[:name], p[:id]]}), :checked => @user_ids, :as => :check_boxes %>
-	<%= quiz.simple_fields_for :questions, @quiz.questions do |q| %>
-		<%= q.input :name %>
-		<% if q.object.input_type == 'Radio' %>
-			<%= q.simple_fields_for :options do |opt| %>
-				<%= opt.input :label %>
-				<%= opt.input :value %>
-			<% end %>
-		<% end %>
-		<% if q.object.input_type == 'Listbox' %>
-			<%= q.simple_fields_for :options do |opt| %>
-				<%= opt.input :label %>
-				<%= opt.input :value %>
-			<% end %>
-		<% end %>
-		<% if q.object.input_type == 'Checkbox' %>
-			<%= q.simple_fields_for :options do |opt| %>
-				<%= opt.input :label %>
-				<%= opt.input :value %>
-			<% end %>
-		<% end %>
-	<% end %>
-	<%= quiz.button :submit, class: "btn btn-primary" %>
-	<%= link_to "Back", admin_quizzes_path, class: "btn btn-primary" %>
-<% end %>
+  <%= quiz.input :name %>
+  <%= quiz.association :users, :label => "User Names", :collection => (@user_names.map {|p| [p[:name], p[:id]]}), :checked => @user_ids, :as => :check_boxes %>
+  <%= quiz.simple_fields_for :questions, @quiz.questions do |q| %>
+    <%= q.input :name %>
+    <% if q.object.input_type == 'Radio' %>
+      <%= q.simple_fields_for :options do |opt| %>
+        <%= opt.input :label %>
+        <%= opt.input :value %>
+      <% end %>
+    <% end %>
+    <% if q.object.input_type == 'Listbox' %>
+      <%= q.simple_fields_for :options do |opt| %>
+        <%= opt.input :label %>
+        <%= opt.input :value %>
+      <% end %>
+    <% end %>
+    <% if q.object.input_type == 'Checkbox' %>
+      <%= q.simple_fields_for :options do |opt| %>
+        <%= opt.input :label %>
+        <%= opt.input :value %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <%= quiz.button :submit, class: "btn btn-primary" %>
+    <%= link_to "Back", admin_quizzes_path, class: "btn btn-primary" %>
+    <% end %>
 
 
 

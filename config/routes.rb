@@ -11,9 +11,8 @@ PracticeApp::Application.routes.draw do
   resources :quizzes do
     resources :questions
     resources :answers
-      get :result
-     
-  end
+    get :result
+  end  
 
   #resources :user_profiles, :path => :profile, :as => :profile
   #resource :profile, :controller => :user_profiles, :only => :show
@@ -67,7 +66,7 @@ PracticeApp::Application.routes.draw do
       collection do
         get :new_quiz
         post :create_quiz
-      end
+      end      
     end
     resources :profiles do
       member do
@@ -76,8 +75,28 @@ PracticeApp::Application.routes.draw do
       end
     end
     resources :quizzes do
-      resources :answers
-    end    
+      resources :answers do
+        member do
+          put :check_answers
+        end
+      end
+    end
+    resources :emails  do
+      collection do
+        post :delete_multiple
+        get :sent_mail
+        get :drafts
+        get :trashed
+      end
+      
+      member do
+        get :reply_email
+        put :send_reply
+        get :forward_email
+        put :read_unread
+      end
+    end
+      
   end
 
   # Sample resource route within a namespace:

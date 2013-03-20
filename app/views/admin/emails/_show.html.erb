@@ -1,0 +1,9 @@
+Subject : <%= @email.subject %><br/><br/>
+Sent :  <%= User.find(@email.receiver_id).email %><br/><br/>
+From :  <%= User.find(@email.sender_id).email %><br/><br/>
+
+<div style="border:2px solid black">
+  <%= @email.body %>
+</div><br/><br/>
+
+<%= link_to "Back To Inbox", admin_emails_path, class: "btn btn-primary" %>

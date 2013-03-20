@@ -34,20 +34,40 @@ PracticeApp::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
-  
+
+
+  config.action_mailer.default_url_options = { host: "localhost:3030" }
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: "smtp.gmail.com",
+    port: 587,
+    domain: "gmail.com",
+    authentication: "plain",
+    enable_starttls_auto: true,
+    user_name: ENV["karanam.sandhya121@gmail.com"],
+    password: ENV["AmmA_NannA"]
+  }
+  # Rest of file omitted.
+  # config.action_mailer.default_url_options = { :host => "localhost:3000" }
 
-  ActionMailer::Base.smtp_settings = {
 
-    :address              => "smtpauth.sumerusolutions.com",
-    :port                 => 25,
-    :domain               => 'sumerusolutions.com',
-    :user_name            => 'sandhya.karanam@sumerusolutions.com',
-    :password             => 'sandhyavinay',
-    :authentication       => 'plain',
-    :openssl_verify_mode => 'none',
 
-    :enable_starttls_auto => true }
+  
+  # config.action_mailer.delivery_method = :smtp
 
-  config.action_mailer.default_url_options = { :host => "localhost:3000" }
+  # ActionMailer::Base.smtp_settings = {
+
+  #   :address              => "smtpauth.sumerusolutions.com",
+  #   :port                 => 25,
+  #   :domain               => 'sumerusolutions.com',
+  #   :user_name            => 'sandhya.karanam@sumerusolutions.com',
+  #   :password             => 'sandhyavinay',
+  #   :authentication       => 'plain',
+  #   :openssl_verify_mode => 'none',
+
+  #   :enable_starttls_auto => true }
+
+  # config.action_mailer.default_url_options = { :host => "localhost:3000" }
 end

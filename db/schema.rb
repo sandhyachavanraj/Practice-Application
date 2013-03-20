@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130221123459) do
+ActiveRecord::Schema.define(:version => 20130319120520) do
 
   create_table "answers", :force => true do |t|
     t.integer  "question_id"
@@ -22,6 +22,42 @@ ActiveRecord::Schema.define(:version => 20130221123459) do
     t.boolean  "status_of_answer", :default => false
   end
 
+  create_table "comments", :force => true do |t|
+    t.string   "title",            :limit => 50, :default => ""
+    t.text     "comment"
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
+    t.integer  "user_id"
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
+  end
+
+  add_index "comments", ["commentable_id"], :name => "index_comments_on_commentable_id"
+  add_index "comments", ["commentable_type"], :name => "index_comments_on_commentable_type"
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+
+  create_table "emails", :force => true do |t|
+    t.string   "name"
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.string   "subject"
+    t.text     "body"
+    t.datetime "sent_at"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.datetime "read_at"
+    t.boolean  "is_drafted",  :default => false
+    t.boolean  "is_deleted",  :default => false
+  end
+
+  create_table "friendships", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "friend_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "accepted_at"
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "options", :force => true do |t|
     t.integer  "question_id"
     t.string   "label"
@@ -30,12 +66,22 @@ ActiveRecord::Schema.define(:version => 20130221123459) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "photos", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
   create_table "questions", :force => true do |t|
     t.integer  "quiz_id"
     t.string   "name"
+    t.string   "input_type"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.string   "input_type"
   end
 
   create_table "quiz_users", :force => true do |t|
@@ -55,14 +101,35 @@ ActiveRecord::Schema.define(:version => 20130221123459) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "taggings", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context",       :limit => 128
+    t.datetime "created_at"
+  end
+
+  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
+
+  create_table "tags", :force => true do |t|
+    t.string "name"
+  end
+
   create_table "user_profiles", :force => true do |t|
     t.integer  "user_id"
-    t.string   "user_name",     :null => false
-    t.string   "address",       :null => false
-    t.string   "mobile_number", :null => false
-    t.string   "company",       :null => false
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.string   "user_name",          :null => false
+    t.string   "address",            :null => false
+    t.string   "mobile_number",      :null => false
+    t.string   "company",            :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   create_table "users", :force => true do |t|
@@ -89,6 +156,7 @@ ActiveRecord::Schema.define(:version => 20130221123459) do
     t.boolean  "admin",                  :default => false
     t.string   "role"
     t.boolean  "is_active",              :default => true
+    t.text     "preferences"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

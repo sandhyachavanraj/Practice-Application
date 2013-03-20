@@ -1,0 +1,155 @@
+<div class="left_side_menu span2">
+  <%= "left menu" %>
+  <%= render_cell :navigation_bar, :left_side_menu, controller_path, action_name %>
+</div>
+<div class="span5">
+  <%= link_to "New", "Javascript:void(0);", class: "btn btn-primary", id: "new_mail" %>
+  <%= link_to "Delete", "JavaScript:void(0);", class: "btn btn-primary", id: "dlt" %>
+  <%= link_to "Reply", "Javascript:void(0);", class: "btn btn-primary", id: "reply" %>
+  <%= link_to "Forward", "Javascript:void(0);", class: "btn btn-primary", id: "fwd" %>
+  <%= link_to "Read/Unread", "Javascript:void(0);", class: "btn btn-primary", id: "read_unread" %><br/><br/>
+
+
+<div id="email_content" class="span3">
+  <%= "Inbox Mail" %><br/><br/>
+  <table border="2">
+    <th><%= check_box_tag "cbox", 'yes', false, class: "check" %> </th>
+      <th>From</th>
+      <th>Subject</th>
+      <th>Received</th>
+      <tbody>
+        <% @emails.each do |email| %>
+          <%- if email.read_at == nil%>
+            <tr>
+              <td><%= check_box_tag email.id, 'yes', false, class: 'cboxes check' %></td>
+              <td><%=  email.name %></td>
+              <td><%= link_to email.subject, admin_email_path(email), id: "show", remote: true  %></td>
+              <td><%=  email.sent_at.strftime("%a %D") %></td>
+            </tr>
+          <% else %>
+            <tr  style="color: red;">
+              <td><%= check_box_tag email.id, 'yes', false, class: 'cboxes check' %></td>
+              <td><b><%=  email.name %></b></td>
+              <td><b><%= link_to email.subject, admin_email_path(email), id: "show", remote: true, style: "color: red;"  %></b></td>
+              <td><b><%=  email.sent_at.strftime("%a %D") %></b></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table><br/><br/>
+
+    <%= link_to "Back", admin_dashboards_path, class: "btn btn-primary" %>
+
+  </div>
+  </div>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("#cbox").change(function(){
+        if($(this).is(':checked')){
+          $(".cboxes").attr('checked', 'checked');
+        }else {
+          $(".cboxes").removeAttr('checked');
+        }
+      });
+    
+
+      $("#dlt").click(function(event){
+        var len = jQuery("input:checked").length;
+        var idList = new Array();
+        jQuery("input:checked").each(function(){
+          idList.push(jQuery(this).attr("id"));
+        });
+        if(len == 0){
+          alert("please select atleast one email to delete")
+          event.stopPropagation();
+          return false;
+        }
+        else{
+          if(confirm("Are you sure Ms SandhyaSandeep?")){
+            jQuery.ajax({
+              type: "POST",
+              url: "/admin/emails/delete_multiple",
+              data: "id=" + idList,
+              asynchronous: false
+            });
+          }
+        }
+      });
+      
+      $("#reply").click(function(event){
+        var len = jQuery("input:checked").length;
+        var id = jQuery("input:checked").attr("id")
+        if(len == 0){
+          alert("please select email you want to reply");
+          event.stopPropagation();
+          return false;
+        }
+        else{
+          jQuery.ajax({
+            type: "Get",
+            dataType: 'script',
+            url: "/admin/emails/" + id + "/reply_email"
+          });
+        }
+      });
+      
+      $("#new_mail").click(function(){
+        jQuery.ajax({
+          type: "Get",
+          dataType: 'script',
+          url: "/admin/emails/new"
+        });
+      });
+      
+      $("#show").click(function(){
+        jQuery.ajax({
+          type: "Get",
+          dataType: 'script',
+          url: "/admin/emails/show"
+        });
+      });
+      
+      $("#fwd").click(function(event){
+        var len = jQuery("input:checked").length;
+        var id = jQuery("input:checked").attr("id")
+        if(len == 0){
+          alert("please select email you want to forward");
+          event.stopPropagation();
+          return false;
+        }else {
+          jQuery.ajax({
+            type: "Get",
+            dataType: 'script',
+            url: "/admin/emails/" + id + "/forward_email"
+          });         
+        }    
+      });
+
+      $("#read_unread").click(function(event){
+        var len = jQuery("input:checked").length;
+        var id = jQuery("input:checked").attr("id");
+        
+        if(len == 0){
+          alert("No emails were selected");
+          event.stopPropagation();
+          return false;
+        }else{
+          jQuery.ajax({
+            type: "put",
+            datatype: "script",
+            url: "/admin/emails/" + id + "/read_unread"
+          });
+        }
+      });
+    });
+  </script>
+
+  <%#*jQuery("input:checked").each(function(){%>
+  <%#*alert(jQuery(this).attr("id"));%>
+  <%#*});%>
+
+  <%#*jQuery("input:checked").each(function(){%>
+  <%#*var ids = jQuery(this).attr("id");%>
+  <%#*});%>
+  <%#*alert(ids)%>
+  <%#*location.href = "/admin/emails?ids=" + ids;%>
