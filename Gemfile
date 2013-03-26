@@ -27,6 +27,7 @@ gem "jquery-fileupload-rails"
 gem 'cells'
 gem 'wicked_pdf'
 gem 'pdfkit'
+gem "ckeditor"
 gem 'whenever', :require => false
 
 

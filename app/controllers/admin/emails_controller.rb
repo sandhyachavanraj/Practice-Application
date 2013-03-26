@@ -106,7 +106,7 @@ class Admin::EmailsController < ApplicationController
   end
 
   def sent_mail
-    @sent_mails = current_user.sent_mails
+    @emails = current_user.sent_mails
   end
 
   def drafts

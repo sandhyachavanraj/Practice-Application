@@ -1,10 +1,11 @@
 <%= "New Email Form" %><br/><br/>
 
-<%= simple_form_for @email, url: admin_emails_path, method: "post", :html => {multipart: true } do |email| %>
+<%= simple_form_for @email, url: admin_emails_path, method: "post", :html => {multipart: true } do |email| %>  
   <%= email.input :receiver_id, label: :To %>.
   <%= email.hidden_field :sender_id %>
   <%= email.input :subject %>
-  <%= email.input :body %>
+  <%= email.input :body, :as => :ckeditor, :input_html => { :ckeditor => { :height => 400 } } %>
+  <%#= email.input :body %>
   <%= email.simple_fields_for :attachments do |attachment| %>
     Attach Files : <%= attachment.file_field :attachment, multiple: true, name: "item[attachements_attributes][][attachment]" %><br/><br/>
     <ul id="attachment"></ul>
@@ -36,7 +37,7 @@
         $("li a").click(function(){
           $(this).parent().remove();
         });
-        //$(this).val("");
+        $(this).val("");
         
     });
     //$(me).html('All done! <a href="http://www.google.com">This is my link to google!</a>').css('color','#090');

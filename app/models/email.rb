@@ -3,7 +3,7 @@ class Email < ActiveRecord::Base
 
 #  paginates_per 10
 
-  self.per_page = 10
+  per_page = 10
   
   attr_accessible :name, :sender_id, :receiver_id, :subject, :body, :sent_at, :attachemnt_attributes
   

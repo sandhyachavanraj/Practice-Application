@@ -44,6 +44,9 @@ GEM
       actionpack (>= 3.0)
       railties (>= 3.0)
     chronic (0.9.1)
+    ckeditor (4.0.2)
+      mime-types
+      orm_adapter
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.1)
@@ -202,6 +205,7 @@ DEPENDENCIES
   aws-sdk
   cancan
   cells
+  ckeditor
   coffee-rails (~> 3.2.1)
   devise
   haml
