@@ -59,5 +59,7 @@ module PracticeApp
     config.assets.version = '1.0'
 
     config.active_record.observers = :notification_observer
+
+    config.middleware.use "PDFKit::Middleware"#, :print_media_type => true
   end
 end

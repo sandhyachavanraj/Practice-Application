@@ -14,7 +14,7 @@ class Admin::ProfilesController < ApplicationController
       		flash[:notice] = "Success"
       		redirect_to admin_dashboards_path
     	else
-      		render :edit
+      		render edit_user_profile_path
     	end
 	end
 
@@ -25,7 +25,7 @@ class Admin::ProfilesController < ApplicationController
     	redirect_to admin_dashboards_path
   	end
 
-  def deactivate
+  	def deactivate
     @user = User.find_by_id params[:id]
     if @user.deactivate
       flash[:notice] = "deactivated successfully"
@@ -43,5 +43,7 @@ class Admin::ProfilesController < ApplicationController
       flash[:error] = 'Exeception occur'
     end
     redirect_to admin_dashboards_path
-  end    
+  end
+
+  
 end

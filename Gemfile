@@ -16,14 +16,19 @@ gem "cancan"
 gem 'aws-sdk'
 gem "acts_as_unvlogable"
 gem 'haml'
-gem 'roadie'
+#gem 'roadie'
 gem "has_many_friends"
 gem 'paperclip'
 gem 'jquery-rails'
 # pagination
 gem 'kaminari'
+gem "jquery-fileupload-rails"
 
 gem 'cells'
+gem 'wicked_pdf'
+gem 'pdfkit'
+gem 'whenever', :require => false
+
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -1,0 +1,30 @@
+<%= "Inbox Mailllll" %><br/><br/>
+  <table border="2">
+    <th><%= check_box_tag "cbox", 'yes', false, class: "check" %> </th>
+      <th>From</th>
+      <th>Subject</th>
+      <th>Received</th>
+      <tbody>
+        <% @emails.each do |email| %>
+          <%- if email.read_at == nil%>
+            <tr  style="color: black;">
+              <td><%= check_box_tag email.id, 'yes', false, class: 'cboxes check' %></td>
+              <td><b><%=  email.name %></b></td>
+              <td><b><%= link_to email.subject, admin_email_path(email), id: "show", remote: true, style: "color: black;"  %></b></td>
+              <td><b><%=  email.sent_at.strftime("%a %D") %></b></td>
+            </tr>
+          <% else %>
+            <tr>
+              <td><%= check_box_tag email.id, 'yes', false, class: 'cboxes check' %></td>
+              <td><%=  email.name %></td>
+              <td><%= link_to email.subject, admin_email_path(email), id: "show", remote: true %></td>
+              <td><%=  email.sent_at.strftime("%a %D") %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table><br/><br/>
+
+    <%= link_to "Back", admin_emails_path, class: "btn btn-primary" %>
+ <%#= paginate @emails %>
+   <%= will_paginate @emails, :params => {:per_page => session[:limit]||10} %>

@@ -1,29 +1,47 @@
 <%= "New Email Form" %><br/><br/>
 
-<%= simple_form_for @email, url: admin_emails_path, method: "post" do |email| %>
+<%= simple_form_for @email, url: admin_emails_path, method: "post", :html => {multipart: true } do |email| %>
   <%= email.input :receiver_id, label: :To %>.
   <%= email.hidden_field :sender_id %>
   <%= email.input :subject %>
   <%= email.input :body %>
+  <%= email.simple_fields_for :attachments do |attachment| %>
+    Attach Files : <%= attachment.file_field :attachment, multiple: true, name: "item[attachements_attributes][][attachment]" %><br/><br/>
+    <ul id="attachment"></ul>
+  <% end %>
+  
   <%= email.button :submit, :Send, class: "btn btn-primary" %>
   <%= link_to "Save To Drafts", "Javascript:void(0);", class: "btn btn-primary", id: "draft" %>
 <% end %>
-
-
 <%= link_to "Back", admin_emails_path, class: "btn btn-primary" %>
 
-  <script type="text/javascript">
-    $(document).ready(function(){
-      $("#draft").click(function(){
-        var receiver_id = $("#email_receiver_id").val();
-        var subject = $("#email_subject").val();
-        var body = $("#email_body").val();
-        jQuery.ajax({
-          type: "post",
-          dataType: "script",
-          url: "/admin/emails/",
-          data: "receiver_id=" + receiver_id + "&subject=" + subject + "&body=" + body
-        });
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#draft").click(function(){
+      var receiver_id = $("#email_receiver_id").val();
+      var subject = $("#email_subject").val();
+      var body = $("#email_body").val();
+      jQuery.ajax({
+            type: "post",
+            dataType: "script",
+            url: "/admin/emails/",
+            data: "receiver_id=" + receiver_id + "&subject=" + subject + "&body=" + body
       });
     });
-  </script>
+
+    $("#email_attachments_attributes_0_attachment").change(function(){
+        attachment = $(this).val();
+        //$("div#attachment").append(attachment + "<br/>");
+        $("ul#attachment").append("<li>" + attachment + ' <a href="#">Remove</a>' +  "</li>").css('color','#090');
+        $("li a").click(function(){
+          $(this).parent().remove();
+        });
+        //$(this).val("");
+        
+    });
+    //$(me).html('All done! <a href="http://www.google.com">This is my link to google!</a>').css('color','#090');
+  });
+</script>
+
+
+    

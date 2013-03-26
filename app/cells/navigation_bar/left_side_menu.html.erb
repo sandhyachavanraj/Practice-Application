@@ -1,0 +1,40 @@
+<ul>  
+  <li>
+    <%= link_to "Sent Items", "Javascript:void(0);", id: "sent_mail" %>
+  </li>
+  <li>
+    <%= link_to "Drafts", "Javascript:void(0);", id: "drafts" %>
+  </li>
+  <li>
+    <%= link_to "Trash", "Javascript:void(0);", id: "trash" %>
+  </li>
+
+</ul>
+
+<script type="text/javascript">
+  $(document).ready(function(){    
+    $("#sent_mail").click(function(){
+      jQuery.ajax({
+        type: "Get",
+        dataType: 'script',
+        url: "/admin/emails/sent_mail"
+      });
+    });
+
+    $("#drafts").click(function(){
+      jQuery.ajax({
+        type: "Get",
+        dataType: 'script',
+        url: "/admin/emails/drafts"
+      });
+    });
+
+    $("#trash").click(function(){
+      jQuery.ajax({
+        type: "Get",
+        dataType: 'script',
+        url: "/admin/emails/trashed"
+      });
+    });
+  });
+</script>

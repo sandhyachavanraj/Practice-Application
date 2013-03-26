@@ -5,5 +5,19 @@ From :  <%= User.find(@email.sender_id).email %><br/><br/>
 <div style="border:2px solid black">
   <%= @email.body %>
 </div><br/><br/>
-
+<%= link_to "Print", print_admin_email_path(@email.id), class: "btn btn-primary", target: "_blank", id: "print", value: @email.id %>
 <%= link_to "Back To Inbox", admin_emails_path, class: "btn btn-primary" %>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#print").click(function(){
+      id = $("#print").attr("value");
+      jQuery.ajax({
+        type: "get",
+        dataType: "script",
+        url: "/admin/emails" + id + "/print"
+      });
+      
+    });
+  });
+</script>

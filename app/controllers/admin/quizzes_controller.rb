@@ -25,7 +25,7 @@ class Admin::QuizzesController < ApplicationController
       redirect_to admin_dashboards_path
     else
       flash[:error] = 'Quiz not Created'
-      render :action => :new         
+      render :action => :new
     end
   end
 

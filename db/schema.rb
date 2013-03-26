@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130319120520) do
+ActiveRecord::Schema.define(:version => 20130321054847) do
 
   create_table "answers", :force => true do |t|
     t.integer  "question_id"
@@ -20,6 +20,15 @@ ActiveRecord::Schema.define(:version => 20130319120520) do
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
     t.boolean  "status_of_answer", :default => false
+  end
+
+  create_table "attachments", :force => true do |t|
+    t.integer  "email_id"
+    t.string   "file_name"
+    t.string   "content_type"
+    t.integer  "file_size"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "comments", :force => true do |t|

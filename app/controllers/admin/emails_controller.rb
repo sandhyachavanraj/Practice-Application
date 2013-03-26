@@ -1,10 +1,14 @@
 class Admin::EmailsController < ApplicationController
+  
   def index
-    @emails = current_user.received_mails.not_drafted_deleted_emails
+#    @emails = Kaminari.paginate_array(current_user.received_mails.not_drafted_deleted_emails).page(params[:page]).per(params[:per_page] || 10)
+
+    @emails = current_user.received_mails.not_drafted_deleted_emails.paginate(:page => params[:page], :per_page => params[:per_page] || 10)
   end
   
   def new
     @email = Email.new
+    @email.attachments.build
     respond_to do |format|
       format.html
       format.js
@@ -36,6 +40,7 @@ class Admin::EmailsController < ApplicationController
       @email.is_drafted = true
       @email.body = params[:body]
       @email.subject = params[:subject]
+      @email.sent_at = Time.now
       if @email.save
         flash[:notice] = "Mail saved to drafts"
         respond_to do |format|
@@ -47,9 +52,14 @@ class Admin::EmailsController < ApplicationController
   
   def show
     @email = Email.find(params[:id])
+    @email.read_at = Time.now
+    @email.save
     respond_to do |format|
       #      format.html
       format.js
+      format.pdf do
+        render :pdf => "show"
+      end
     end
   end
   
@@ -89,7 +99,7 @@ class Admin::EmailsController < ApplicationController
       mail.is_deleted = true
       mail.save
     end
-#    Email.where("id in (?)", params[:id].split(',')).destroy_all
+    #    Email.where("id in (?)", params[:id].split(',')).destroy_all
     respond_to do |format|
       format.js {render :js => "window.location.replace('#{admin_emails_path}');" }
     end
@@ -115,9 +125,36 @@ class Admin::EmailsController < ApplicationController
       @email.read_at = nil
     end
     @email.save
+#     render :partial => 'list_emails'
     respond_to do |format|
       format.js {render :js => "window.location.replace('#{admin_emails_path}');" }
     end
+  end
+
+  def search_email
+    @emails = Email.where('name = ?', params[:name])
+    respond_to do |format|
+      format.html
+      format.js
+    end
+    #    respond_to do |format|
+    #      format.js { render :js => "window.location.replace('#{admin_emails_path}');" }
+    #    end
+
+  end
+
+#  def display_emails
+#    limit = params[:number]
+#    session[:limit] = limit
+#    @emails = current_user.received_mails.not_drafted_deleted_emails.paginate(:page => params[:page], :per_page => params[:number]||10)
+#    respond_to do |format|
+#      format.html
+#      format.js
+#    end
+#  end
+
+  def print
+    @email = Email.find(params[:id])
   end
   
 end
