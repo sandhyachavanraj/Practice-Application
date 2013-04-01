@@ -3,7 +3,7 @@ Sent :  <%= User.find(@email.receiver_id).email %><br/><br/>
 From :  <%= User.find(@email.sender_id).email %><br/><br/>
 
 <div style="border:2px solid black">
-  <%= @email.body.html_safe %>
+  <%= @email.body.html_safe  %>
 </div><br/><br/>
 <%= link_to "Print", print_admin_email_path(@email.id), class: "btn btn-primary", target: "_blank", id: "print", value: @email.id %>
 <%= link_to "Back To Inbox", admin_emails_path, class: "btn btn-primary" %>

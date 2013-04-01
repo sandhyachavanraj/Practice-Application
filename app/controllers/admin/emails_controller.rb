@@ -156,5 +156,18 @@ class Admin::EmailsController < ApplicationController
   def print
     @email = Email.find(params[:id])
   end
+
+  def invite_friends
+    
+    raise "sandhya".inspect
+  end
+
+  def friends
+    raise "friends".inspect
+  end
+
+
+
+
   
 end

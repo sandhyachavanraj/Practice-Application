@@ -88,7 +88,7 @@ PracticeApp::Application.routes.draw do
         get :drafts
         get :trashed
         get :search_email
-        get :display_emails
+        get :display_emails                
       end
       
       member do
@@ -97,6 +97,15 @@ PracticeApp::Application.routes.draw do
         get :forward_email
         put :read_unread
         get :print
+#        get :invite_friends
+        get :friends
+      end
+    end
+
+    resources :users do
+      member do
+        get :invite_friends
+        get :friends
       end
     end
       

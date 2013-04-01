@@ -1,23 +1,25 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.8'
-
+gem 'gdata', git: 'https://github.com/agentrock/gdata.git'
+#gem 'contacts'#, :git => 'git@github.com:eofferma/contacts.git'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 #gem 'sqlite3'
-gem 'mysql'
+gem 'mysql2'
 gem 'devise'
 gem 'simple_form'
 gem 'will_paginate', '~> 3.0'
 gem 'omniauth'
-gem 'json'
+gem 'json', '1.6.5'
 gem "cancan"
 gem 'aws-sdk'
 gem "acts_as_unvlogable"
 gem 'haml'
 #gem 'roadie'
 gem "has_many_friends"
+#gem "has_many_friends", :git => "git@github.com:thenetduck/has_many_friends.git"
 gem 'paperclip'
 gem 'jquery-rails'
 # pagination
@@ -29,7 +31,7 @@ gem 'wicked_pdf'
 gem 'pdfkit'
 gem "ckeditor"
 gem 'whenever', :require => false
-
+gem 'deneuxa-contacts', :require => 'contacts'
 
 # Gems used only for assets and not required
 # in production environments by default.

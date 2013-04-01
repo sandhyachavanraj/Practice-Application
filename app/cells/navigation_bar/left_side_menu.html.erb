@@ -9,6 +9,10 @@
     <%= link_to "Trash", "Javascript:void(0);", id: "trash" %>
   </li>
 
+  <li>
+    <%= link_to "Invite Friends",  invite_friends_admin_user_path(3), id: 3 %>
+  </li>
+
 </ul>
 
 <script type="text/javascript">
@@ -36,5 +40,9 @@
         url: "/admin/emails/trashed"
       });
     });
+
+    <%#*$("#invite").click(function(){%>
+      <%#*alert("sandhya")%>
+    <%#*});%>
   });
 </script>

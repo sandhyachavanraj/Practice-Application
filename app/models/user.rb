@@ -8,10 +8,13 @@ class User < ActiveRecord::Base
 
 	# attr_accessible :title, :body
 	attr_accessible :email, :password, :password_confirmation, :remember_me, :admin, :user_profile_attributes, :role, :preferences, :photos_attributes
-       
+
+  attr_accessor :mail_type
+
+  ACCOUNT_TYPES = ["gmail", "yahoo", "hotmail"]
 
 	#  associations
-	# has_many_friends
+#	has_many_friends
 	has_one :user_profile
   has_many :photos
 	has_many :quiz_users

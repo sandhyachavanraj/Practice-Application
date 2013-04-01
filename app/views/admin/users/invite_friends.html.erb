@@ -1,0 +1,16 @@
+<%= "Invite From Address Book" %><br/><br/>
+
+<%#*<select name="from" id="from">%>
+<%#*<option value="">Select Id</option>%>
+<%#*<option value="gmail">Gmail</option>%>
+<%#*<option value="yahoo">Yahoo</option>%>
+<%#*<option value="hotmail">Hotmail</option>%>
+<%#*</select><br/><br/>%>
+
+
+<%= simple_form_for @user, url:  friends_admin_user_path(@user), method: 'get' do |user| %>
+  <%= user.input :mail_type, collection: ["gmail", "yahoo"] %>
+  <%= user.input :email, input_html: { value: "" } %>
+  <%= user.input :password %>  
+  <%= user.submit :Submit, value: "Find Friends" %>  
+<% end %>

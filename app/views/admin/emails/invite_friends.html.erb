@@ -1,0 +1,6 @@
+<%= "Invite From Address Book" %>
+<%= simple_form_for @email, url: friends_admin_email_path(@email) do |email| %>
+  <%= email.input :email %>
+  <%= email.input :password %>
+  <%= email.submit :Submit %>
+<% end %>
