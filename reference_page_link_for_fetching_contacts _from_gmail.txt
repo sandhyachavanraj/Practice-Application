@@ -1,0 +1,3 @@
+for reference please check this page :
+
+https://selvaonrails.wordpress.com/tag/fetching-contacts-from-gmail-in-rails/
