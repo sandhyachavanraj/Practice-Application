@@ -28,7 +28,7 @@
               <li id='fat-menu' class="dropdown" ><%= link_to user_profile.user_name,"#",:id => 'drop3', :class =>"dropdown-toggle", :role => 'button', 'data-toggle' => "dropdown" %>
                 <ul class="dropdown-menu" role='menu' aria-labelledby="drop3">
                   <li tab-index='-1'><%= link_to 'view profile', profile_path %></li>
-                  <li tab-index='-1'><%= link_to :sign_out, destroy_user_session_path, method: :delete %></li>
+                  <li tab-index='-1'><%= link_to "sign_out", destroy_user_session_path, method: :get %></li>
                 </ul>
               </li> 
               <% end %>        

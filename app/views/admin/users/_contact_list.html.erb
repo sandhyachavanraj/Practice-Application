@@ -1,3 +1,11 @@
-<% for i in @contacts %>
-<%= check_box_tag "email_#{i}", name: "email[]", :value => "#{i}" %><%= i %><br/>
+<%= javascript_include_tag "jquery.js" %>
+<%= simple_form_for @user, url: send_invitation_admin_user_path(@user.id), method: "post" do |c| %>
+  <% @contacts.each do |contact| %>
+    <%= check_box_tag "contacts[]", "#{contact[1]}" %><%= contact[1] %><br/>
+  <% end %>
+  <%= c.submit "Invite", class: "btn btn-primary" %>
 <% end %>
+
+<%#= button_to "Invite", "#", class: "btn btn-primary" %>
+<%= link_to "Back", admin_emails_path, class: "btn btn-primary"%>
+

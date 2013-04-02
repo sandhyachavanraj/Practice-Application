@@ -1,6 +1,7 @@
 <div class="left_side_menu span2">
   <%= "left menu" %>
   <%= render_cell :navigation_bar, :left_side_menu, controller_path, action_name %>
+  <%= link_to "Invite Friends",  invite_friends_admin_user_path(current_user.id), id: current_user.id %>
 </div>
 <div class="span5">
   <%= link_to "New", "Javascript:void(0);", class: "btn btn-primary", id: "new_mail" %>

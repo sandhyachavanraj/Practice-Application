@@ -23,8 +23,9 @@ class Admin::EmailsController < ApplicationController
       @email.sender_id = current_user.id
       @email.name = User.find(@email.sender_id).user_profile.user_name
       @email.sent_at = Time.now
-      if @email.save!
-        UserMailer.send_mail(@email).deliver
+      if @email.save
+        user = User.find(@email.receiver_id)
+        UserMailer.send_mail(user.email, @email).deliver
         flash[:notice] = "Mail sent"
         redirect_to admin_emails_path
       else
@@ -75,8 +76,12 @@ class Admin::EmailsController < ApplicationController
     @email = Email.find(params[:id])
     receiver_email = params[:email][:receiver_id]
     @email.receiver_id = User.find_by_email(receiver_email).id
-    UserMailer.send_mail(@email).deliver
+    @email.subject = params[:email][:subject]
+    @email.body = params[:email][:body]
+    @email.sender_id = current_user.id
+#    user = User.find_by_email(receiver_email)
     if @email.save
+      UserMailer.send_mail(receiver_email, @email).deliver
       flash[:notice] = "mail sent"
       redirect_to admin_emails_path
     end

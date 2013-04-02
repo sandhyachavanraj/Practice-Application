@@ -15,4 +15,14 @@ class Admin::UsersController < ApplicationController
       end
     end
   end
+
+  def send_invitation
+#    raise params[:contacts].inspect
+    @contacts = params[:contacts]
+    @contacts.each do |contact|
+      InvitationMailer.invite(contact).deliver
+    end
+    flash[:notice] = "invitation mail sent"
+    redirect_to admin_emails_path
+  end
 end

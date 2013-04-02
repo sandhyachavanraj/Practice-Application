@@ -106,6 +106,7 @@ PracticeApp::Application.routes.draw do
       member do
         get :invite_friends
         get :friends
+        post :send_invitation
       end
     end
       
