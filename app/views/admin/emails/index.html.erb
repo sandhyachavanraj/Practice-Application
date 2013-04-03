@@ -43,7 +43,7 @@
     </table><br/><br/>
 
     <%= link_to "Back", admin_dashboards_path, class: "btn btn-primary" %><br/><br/>
-    <%= will_paginate @emails, :params => {:per_page => params[:per_page] || 10} %>
+    <%= will_paginate @emails, :params => {:per_page => params[:per_page] || 10}, class: "apple_pagination" %>
   </div>
  <%#= paginate @emails, :params => {:per_page => params[:per_page]} %>
  <%#= params.inspect %>
