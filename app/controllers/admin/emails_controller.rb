@@ -1,9 +1,10 @@
 class Admin::EmailsController < ApplicationController
+  helper_method :sort_column, :sort_direction
   
   def index
 #    @emails = Kaminari.paginate_array(current_user.received_mails.not_drafted_deleted_emails).page(params[:page]).per(params[:per_page] || 10)
 
-    @emails = current_user.received_mails.not_drafted_deleted_emails.paginate(:page => params[:page], :per_page => params[:per_page] || 10)
+    @emails = current_user.received_mails.not_drafted_deleted_emails.order(sort_column + " " + sort_direction).paginate(:page => params[:page], :per_page => params[:per_page] || 10)
   end
   
   def new
@@ -16,16 +17,21 @@ class Admin::EmailsController < ApplicationController
   end
   
   def create
+#    raise params.inspect
     if params[:email] != nil
       @email = Email.new(params[:email])
-      receiver_mail = params[:email][:receiver_id]
-      @email.receiver_id = User.find_by_email(receiver_mail).id
-      @email.sender_id = current_user.id
-      @email.name = User.find(@email.sender_id).user_profile.user_name
-      @email.sent_at = Time.now
+      receiver_mails = params[:email][:receiver_id].split(",")
+      receiver_mails.each do |receiver_mail|
+        @email.receiver_id = User.find_by_email(receiver_mail).id
+        @email.sender_id = current_user.id
+        @email.name = User.find(@email.sender_id).user_profile.user_name
+        @email.sent_at = Time.now
+        @email.save
+        UserMailer.send_mail(receiver_mail, @email).deliver
+      end
+
       if @email.save
-        user = User.find(@email.receiver_id)
-        UserMailer.send_mail(user.email, @email).deliver
+#        user = User.find(@email.receiver_id)
         flash[:notice] = "Mail sent"
         redirect_to admin_emails_path
       else
@@ -111,15 +117,15 @@ class Admin::EmailsController < ApplicationController
   end
 
   def sent_mail
-    @emails = current_user.sent_mails
+    @emails = current_user.sent_mails.paginate(:page => params[:page], :per_page => params[:per_page] || 10)
   end
 
   def drafts
-    @emails = Email.drafted.where(:sender_id => current_user.id)
+    @emails = Email.drafted.where(:sender_id => current_user.id).paginate(:page => params[:page], :per_page => params[:per_page] || 10)
   end
 
   def trashed
-    @emails = Email.trashed.where(:sender_id => current_user.id)
+    @emails = Email.trashed.where(:sender_id => current_user.id).paginate(:page => params[:page], :per_page => params[:per_page] || 10)
   end
 
   def read_unread
@@ -137,7 +143,7 @@ class Admin::EmailsController < ApplicationController
   end
 
   def search_email
-    @emails = Email.where('name = ?', params[:name])
+    @emails = Email.where('name = ?', params[:name]).paginate(:page => params[:page], :per_page => params[:per_page] || 10)
     respond_to do |format|
       format.html
       format.js
@@ -171,8 +177,20 @@ class Admin::EmailsController < ApplicationController
     raise "friends".inspect
   end
 
+  def sort
+    
+  end
 
+  private
 
+  def sort_column
+#    params[:sort] || "sender_id"
+    Email.column_names.include?(params[:sort]) ? params[:sort] : "sender_id"
+  end
 
+  def sort_direction
+#    params[:direction] || "asc"
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
   
 end

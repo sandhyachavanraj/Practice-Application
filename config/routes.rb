@@ -88,7 +88,8 @@ PracticeApp::Application.routes.draw do
         get :drafts
         get :trashed
         get :search_email
-        get :display_emails                
+        get :display_emails
+        get :sort
       end
       
       member do

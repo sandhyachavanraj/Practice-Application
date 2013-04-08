@@ -1,6 +1,6 @@
 <%= javascript_include_tag 'pagination' %>
 <%= "Inbox Mailllll" %><br/><br/>
-  <table border="2">
+  <table border="2" id="list_emails">
     <th><%= check_box_tag "cbox", 'yes', false, class: "check" %> </th>
       <th>From</th>
       <th>Subject</th>
@@ -10,7 +10,7 @@
           <%- if email.read_at == nil%>
             <tr  style="color: black;">
               <td><%= check_box_tag email.id, 'yes', false, class: 'cboxes check' %></td>
-              <td><b><%=  email.name %></b></td>
+              <td><b><%= sortable email.name %></b></td>
               <td><b><%= link_to email.subject, admin_email_path(email), id: "show", remote: true, style: "color: black;"  %></b></td>
               <td><b><%=  email.sent_at.strftime("%a %D") %></b></td>
             </tr>
@@ -25,7 +25,6 @@
         <% end %>
       </tbody>
     </table><br/><br/>
-
-    <%= will_paginate @emails, class: 'apple_pagination', :params => {:per_page => params[:per_page] || 10} %>
+<%= will_paginate @emails, class: 'apple_pagination', :params => {:per_page => params[:per_page] || 10} %>
     <%= link_to "Back", admin_emails_path, class: "btn btn-primary" %>
  

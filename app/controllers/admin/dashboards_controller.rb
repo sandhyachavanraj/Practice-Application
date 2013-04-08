@@ -1,9 +1,9 @@
 class Admin::DashboardsController < ApplicationController
   before_filter :check_admin
 
-  def index 
-    @user_profiles = UserProfile.all
-    @user_profiles = UserProfile.paginate(:page => params[:page], :per_page => 5)
+  def index
+    @user_profiles = UserProfile.joins(:user).where("users.admin = false").paginate(:page => params[:page], :per_page => 5)
+#    @user_profiles = UserProfile.paginate(:page => params[:page], :per_page => 5)
   end
 
   # def new_quiz
